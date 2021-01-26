@@ -6,11 +6,11 @@ tutorial in R, to developing a shallow CNN for text classification in keras. See
 For any questions, please email me at jack.lovell@colorado.edu
 
 ## Table of Contents
-[Twiter nlp analysis](https://github.com/jackransomlovell/intro2DataScience/tree/main/report1)
-[Twitter nlp analysis 2+Meta analysis paper nlp](https://github.com/jackransomlovell/intro2DataScience/tree/main/report2)
-[Intro to RL](https://github.com/jackransomlovell/intro2DataScience/tree/main/report3)
-[RL of Emotion](https://github.com/jackransomlovell/intro2DataScience/tree/main/report4)
-[Text classification in R](https://github.com/jackransomlovell/intro2DataScience/tree/main/report5)
-[Text classification in R 2](https://github.com/jackransomlovell/intro2DataScience/tree/main/report6)
-[Final CNN](https://github.com/jackransomlovell/intro2DataScience/tree/main/finalReport)
+1. [Twiter nlp analysis](https://github.com/jackransomlovell/intro2DataScience/tree/main/report1)
+2. [Twitter nlp analysis 2+Meta analysis paper nlp](https://github.com/jackransomlovell/intro2DataScience/tree/main/report2)
+3. [Intro to RL](https://github.com/jackransomlovell/intro2DataScience/tree/main/report3)
+4. [RL of Emotion](https://github.com/jackransomlovell/intro2DataScience/tree/main/report4)
+5. [Text classification in R](https://github.com/jackransomlovell/intro2DataScience/tree/main/report5)
+6. [Text classification in R 2](https://github.com/jackransomlovell/intro2DataScience/tree/main/report6)
+7. [Final CNN](https://github.com/jackransomlovell/intro2DataScience/tree/main/finalReport)
 
