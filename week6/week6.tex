@@ -1,0 +1,599 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={week6},
+  pdfauthor={Jack Lovell},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{week6}
+\author{Jack Lovell}
+\date{11/16/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{text-classification-cont.}{%
+\section{Text Classification cont.}\label{text-classification-cont.}}
+
+So last week used used some previous skills to work on text
+classification, in addition to working on those skills we also buily on
+them a bit by training a random forest model. Although the training was
+succesful, and we learned about hwo to tweak a random forest model to
+improve training performance. We did not test the model at all! Testing
+your model is one of the most important steps in solving some sort of
+problem with machine learning. As it affords you an understanding and
+insight into your model and what it is learning. Without this the model
+is more or less useless. So let's take a look at training a new model
+with data we have yet to work with yet, and then go through some common
+steps done when testing your model.
+
+\hypertarget{read-in-data}{%
+\subsection{Read in data}\label{read-in-data}}
+
+So we will want to leverage the useful data from the \texttt{quandteda}
+library. The library is pretty much just used for text analysis and text
+analysis education in R. It's a bit different from \texttt{tidytext} so
+this will diversify our skills a bit. Let's load in the package and data
+we are interested in working with below. This script is largely
+dependent on
+\href{https://tm4ss.github.io/docs/Tutorial_7_Klassifikation.html}{this}
+tutorial.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{stringsAsFactors =} \OtherTok{FALSE}\NormalTok{)}
+\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(quanteda)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"quanteda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: quanteda
+\end{verbatim}
+
+\begin{verbatim}
+## Package version: 2.1.2
+\end{verbatim}
+
+\begin{verbatim}
+## Parallel computing: 2 of 4 threads used.
+\end{verbatim}
+
+\begin{verbatim}
+## See https://quanteda.io for tutorials and examples.
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'quanteda'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:utils':
+## 
+##     View
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{textdata <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"tm4ss.github.io/data/sotu_paragraphs.csv"}\NormalTok{, }\DataTypeTok{sep =} \StringTok{";"}\NormalTok{, }\DataTypeTok{encoding =} \StringTok{"UTF-8"}\NormalTok{)}
+
+\NormalTok{corpus <-}\StringTok{ }\KeywordTok{corpus}\NormalTok{(textdata}\OperatorTok{$}\NormalTok{text, }\DataTypeTok{docnames =}\NormalTok{ textdata}\OperatorTok{$}\NormalTok{doc_id)}
+
+\CommentTok{# Build a dictionary of lemmas}
+\NormalTok{lemma_data <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"tm4ss.github.io/resources/baseform_en.tsv"}\NormalTok{, }\DataTypeTok{encoding =} \StringTok{"UTF-8"}\NormalTok{)}
+
+\CommentTok{# Create a DTM}
+\NormalTok{corpus_token <-}\StringTok{ }\NormalTok{corpus }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{tokens}\NormalTok{(}\DataTypeTok{remove_punct =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{remove_numbers =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{remove_symbols =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{tokens_tolower}\NormalTok{()}
+
+\NormalTok{corpus_token}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Tokens consisting of 21,334 documents.
+## 1 :
+## [1] "fellow-citizens" "of"              "the"             "senate"         
+## [5] "and"             "house"           "of"              "representatives"
+## 
+## 2 :
+##  [1] "i"            "embrace"      "with"         "great"        "satisfaction"
+##  [6] "the"          "opportunity"  "which"        "now"          "presents"    
+## [11] "itself"       "of"          
+## [ ... and 77 more ]
+## 
+## 3 :
+##  [1] "in"            "resuming"      "your"          "consultations"
+##  [5] "for"           "the"           "general"       "good"         
+##  [9] "you"           "can"           "not"           "but"          
+## [ ... and 73 more ]
+## 
+## 4 :
+##  [1] "among"       "the"         "many"        "interesting" "objects"    
+##  [6] "which"       "will"        "engage"      "your"        "attention"  
+## [11] "that"        "of"         
+## [ ... and 24 more ]
+## 
+## 5 :
+##  [1] "a"           "free"        "people"      "ought"       "not"        
+##  [6] "only"        "to"          "be"          "armed"       "but"        
+## [11] "disciplined" "to"         
+## [ ... and 34 more ]
+## 
+## 6 :
+##  [1] "the"           "proper"        "establishment" "of"           
+##  [5] "the"           "troops"        "which"         "may"          
+##  [9] "be"            "deemed"        "indispensable" "will"         
+## [ ... and 35 more ]
+## 
+## [ reached max_ndoc ... 21,328 more documents ]
+\end{verbatim}
+
+Ok great, it looks like we have a TON of data. They all seem to be from
+some sort of political text. It's from the State of The Union addresses,
+how fitting for the current times. This is great, we already have out
+data in a corpus format. Now we just need some training data. See below
+for loading the training data in!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Read previously annotated training data}
+\NormalTok{trainingData <-}\StringTok{ }\KeywordTok{read.csv2}\NormalTok{(}\StringTok{"tm4ss.github.io/data/paragraph_training_data_format.csv"}\NormalTok{, }\DataTypeTok{stringsAsFactors =}\NormalTok{ T)}
+\CommentTok{# Example paragraph Foreign Affairs}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{13}\NormalTok{)}
+\NormalTok{domestic_example <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(trainingData}\OperatorTok{$}\NormalTok{ID[trainingData}\OperatorTok{$}\NormalTok{LABEL }\OperatorTok{==}\StringTok{ "DOMESTIC"}\NormalTok{], }\DecValTok{1}\NormalTok{)}
+\KeywordTok{as.character}\NormalTok{(}\KeywordTok{texts}\NormalTok{(corpus)[domestic_example])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "By the use of the State banks, which do not derive their charters from\nthe General Government and are not controlled by its authority, it is\nascertained that the moneys of the United States can be collected and\ndisbursed without loss or inconvenience, and that all the wants of the\ncommunity in relation to exchange and currency are supplied as well as\nthey have ever been before. If under circumstances the most unfavorable\nto the steadiness of the money market it has been found that the\nconsiderations on which the Bank of the United States rested its claims\nto the public favor were imaginary and groundless, it can not be\ndoubted that the experience of the future will be more decisive against\nthem."
+\end{verbatim}
+
+Ok, very cool, we have loaded our training data in and now we cann see
+that they are broken up by different topics related to the SOTU
+addresses. It seems like they are broken up into two different groups
+\texttt{DOMESTIC} and `FORGEIN' topics. Let's see the ratio between the
+two.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{numberOfDocuments <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(trainingData)}
+\KeywordTok{table}\NormalTok{(trainingData[, }\StringTok{"LABEL"}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## DOMESTIC  FOREIGN 
+##      209       91
+\end{verbatim}
+
+Ok, so \texttt{DOMESTIC} is certainly more frequent, but thats ok. As
+you can see above, we will want to keep track of the number of rows in
+our training data for future use of it during training and testing our
+model.
+
+\hypertarget{create-a-document-term-matrix}{%
+\subsection{Create a document-term
+matrix}\label{create-a-document-term-matrix}}
+
+In order to begin building a text classification model, we must furst
+build a matrix that accurately represents the data. In this case we are
+interested in how many of each unique term there is for each document.
+This not only gives us insight into various aspects of the document,
+such as it's sentiment (negative or positive) but it may be a unique
+feature of a document that will allow a machine learning model to learn
+something unique about that document.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Base line: create feature set out of unigrams}
+\CommentTok{# Probably the DTM is too big for the classifier. Let us reduce it}
+\NormalTok{minimumFrequency <-}\StringTok{ }\DecValTok{5}
+
+\NormalTok{DTM <-}\StringTok{ }\NormalTok{corpus_token }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{dfm}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{dfm_trim}\NormalTok{(}\DataTypeTok{min_docfreq =}\NormalTok{ minimumFrequency, }\DataTypeTok{max_docfreq =} \OtherTok{Inf}\NormalTok{)}
+
+\CommentTok{# How many features do we have?}
+\KeywordTok{dim}\NormalTok{(DTM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 21334 10950
+\end{verbatim}
+
+Ok great, so we've now created a DTM. We first reduced the sive of the
+DTM due to the massive dimensionality of our dataset. If we left it as
+is, the DTM would be insanely large and almost impossible to learn from.
+We then asked how many features there are, which was given as
+21334x10950. That's a lot! This is great, as there is no shortage of
+data, and we succesfully reduced it's size so the model will be able to
+learn efficiently. Let's start training!
+
+\hypertarget{classification}{%
+\section{Classification}\label{classification}}
+
+We will build a linear regression model and a support vector machine
+model. We have discussed linear regression quite a bit in class so I
+won't go into detail about it here. But in a SVM we are essentially just
+fitting a high dimensional plane that most accurately discriminates
+between two classes. Think of it as two clouds of data in a two
+dimensional space. One red one blue, and they are generally clustered
+together, a SVM fits what is called a ``hyperplane'' between those two
+clouds, and tries to most accurately classify what a new data point it
+has not seen before may be. Note that it is typically linear, ie it does
+not take a quadratic or anyother non-linear shape. See below for a
+visual description.
+\includegraphics{https://www.google.com/url?sa=i\&url=https\%3A\%2F\%2Ftowardsdatascience.com\%2Fsupport-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47\&psig=AOvVaw3DcDCjCgQxkge04nLYevLx\&ust=1605643043336000\&source=images\&cd=vfe\&ved=0CAIQjRxqFwoTCMCWytXsh-0CFQAAAAAdAAAAABAD}
+
+We also need to split our data into a training and testing set. This is
+extremely important! One of the ten commandments of machine learning is:
+``Thou shalt not touch the test set!'' This is incredibly important as
+if we start tweaking our model or messing with the test set at all this
+automatically introduces bias and can very quickly invalidate our model.
+See below for code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(LiblineaR)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"LiblineaR"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: LiblineaR
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(SparseM)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"SparseM"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: SparseM
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'SparseM'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:base':
+## 
+##     backsolve
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{source}\NormalTok{(}\StringTok{"tm4ss.github.io/utils.R"}\NormalTok{)}
+
+\NormalTok{annotatedDTM <-}\StringTok{ }\NormalTok{DTM[trainingData[, }\StringTok{"ID"}\NormalTok{], ]}
+\NormalTok{annotatedDTM <-}\StringTok{ }\KeywordTok{convertMatrixToSparseM}\NormalTok{(annotatedDTM)}
+\NormalTok{annotatedLabels <-}\StringTok{ }\NormalTok{trainingData[, }\StringTok{"LABEL"}\NormalTok{]}
+
+\CommentTok{# split into training and test set}
+\NormalTok{selector_idx <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\OtherTok{TRUE}\NormalTok{, }\DecValTok{4}\NormalTok{), }\OtherTok{FALSE}\NormalTok{), }\DataTypeTok{length.out =}\NormalTok{ numberOfDocuments)}
+\NormalTok{trainingDTM <-}\StringTok{ }\NormalTok{annotatedDTM[selector_idx, ]}
+\NormalTok{trainingLabels <-}\StringTok{ }\NormalTok{annotatedLabels[selector_idx]}
+\NormalTok{testDTM <-}\StringTok{ }\NormalTok{annotatedDTM[}\OperatorTok{!}\NormalTok{selector_idx, ]}
+\NormalTok{testLabels <-}\StringTok{ }\NormalTok{annotatedLabels[}\OperatorTok{!}\NormalTok{selector_idx]}
+
+\CommentTok{# create LR classification model}
+\NormalTok{model <-}\StringTok{ }\KeywordTok{LiblineaR}\NormalTok{(trainingDTM, trainingLabels)}
+\KeywordTok{summary}\NormalTok{(model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            Length Class  Mode     
+## TypeDetail     1  -none- character
+## Type           1  -none- numeric  
+## W          10951  -none- numeric  
+## Bias           1  -none- numeric  
+## ClassNames     2  factor numeric  
+## NbClass        1  -none- numeric
+\end{verbatim}
+
+Great! We've created a linear regression model! The summary does not
+tell us much, so lets look a bit deeper into what is actually happening
+there. We will do this by trying to predict whether a document in the
+test dataset of the class \texttt{DOMESTIC} or \texttt{FORGEIN}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{classification <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model, testDTM) }
+\NormalTok{predictedLabels <-}\StringTok{ }\NormalTok{classification}\OperatorTok{$}\NormalTok{predictions}
+\NormalTok{contingencyTable <-}\StringTok{ }\KeywordTok{table}\NormalTok{(predictedLabels, testLabels)}
+\KeywordTok{print}\NormalTok{(contingencyTable) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                testLabels
+## predictedLabels DOMESTIC FOREIGN
+##        DOMESTIC       24       5
+##        FOREIGN        21      10
+\end{verbatim}
+
+Ok so this gave us a matrix of predicted laberls to the actual test
+labels, lets calculate a ratio to see how accurate the prediction was.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{accuracy <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(contingencyTable)) }\OperatorTok{/}\StringTok{ }\KeywordTok{length}\NormalTok{(testLabels)}
+\KeywordTok{print}\NormalTok{(accuracy) }\CommentTok{# share of correctly classified paragraphs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5666667
+\end{verbatim}
+
+Not horrendous for a first try, but we can certainly do better. Let's
+start to take a look at cross-validation.
+
+\hypertarget{cross-validation}{%
+\subsection{Cross-validation}\label{cross-validation}}
+
+K-fold classification affords us a more accurate and less biased mean of
+interpreting the performance of our model. When we do this, we lose the
+potential learning power from the test data. A k-fold classification
+will allow us to avoid this, as when we have a k=10, the algorithm will
+learn from 9 folds, and test on the 10th. It will do this for all the
+data and give a better estimate of performace.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{get_k_fold_logical_indexes <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(j, k, n) \{}
+  \ControlFlowTok{if}\NormalTok{ (j }\OperatorTok{>}\StringTok{ }\NormalTok{k) }\KeywordTok{stop}\NormalTok{(}\StringTok{"Cannot select fold larger than nFolds"}\NormalTok{)}
+\NormalTok{  fold_lidx <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\OtherTok{FALSE}\NormalTok{, k)}
+\NormalTok{  fold_lidx[j] <-}\StringTok{ }\OtherTok{TRUE}
+\NormalTok{  fold_lidx <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(fold_lidx, }\DataTypeTok{length.out =}\NormalTok{ n)}
+  \KeywordTok{return}\NormalTok{(fold_lidx)}
+\NormalTok{\}}
+
+\CommentTok{# Example usage}
+\KeywordTok{get_k_fold_logical_indexes}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{k =} \DecValTok{10}\NormalTok{, }\DataTypeTok{n =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+\end{verbatim}
+
+Cool this gives us an example of 10 folds to a data frame of size
+n.~Let's try it on our actual data!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k <-}\StringTok{ }\DecValTok{10}
+\NormalTok{evalMeasures <-}\StringTok{ }\OtherTok{NULL}
+\ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{k) \{}
+  \CommentTok{# create j-th boolean selection vector}
+\NormalTok{  currentFold <-}\StringTok{ }\KeywordTok{get_k_fold_logical_indexes}\NormalTok{(j, k, }\KeywordTok{nrow}\NormalTok{(trainingDTM))}
+  
+  \CommentTok{# select training data split}
+\NormalTok{  foldDTM <-}\StringTok{ }\NormalTok{annotatedDTM[}\OperatorTok{!}\NormalTok{currentFold, ]}
+\NormalTok{  foldLabels <-}\StringTok{ }\NormalTok{annotatedLabels[}\OperatorTok{!}\NormalTok{currentFold]}
+  
+  \CommentTok{# create model}
+\NormalTok{  model <-}\StringTok{ }\KeywordTok{LiblineaR}\NormalTok{(foldDTM, foldLabels)}
+  
+  \CommentTok{# select test data split}
+\NormalTok{  testSet <-}\StringTok{ }\NormalTok{annotatedDTM[currentFold, ]}
+\NormalTok{  testLabels <-}\StringTok{ }\NormalTok{annotatedLabels[currentFold]}
+  
+  \CommentTok{# predict test labels}
+\NormalTok{  predictedLabels <-}\StringTok{ }\KeywordTok{predict}\NormalTok{(model, testSet)}\OperatorTok{$}\NormalTok{predictions}
+  
+  \CommentTok{# evaluate predicted against test labels}
+\NormalTok{  kthEvaluation <-}\StringTok{ }\KeywordTok{F.measure}\NormalTok{(predictedLabels, testLabels, }\DataTypeTok{positiveClassName =} \StringTok{"FOREIGN"}\NormalTok{)}
+  
+  \CommentTok{# combine evaluation measures for k runs}
+\NormalTok{  evalMeasures <-}\StringTok{ }\KeywordTok{rbind}\NormalTok{(evalMeasures, kthEvaluation)}
+\NormalTok{\}}
+\CommentTok{# Final evaluation values of k runs:}
+\KeywordTok{print}\NormalTok{(evalMeasures)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       P         R         S         F         A Pos.
+## kthEvaluation 0.3333333 0.4000000 0.6000000 0.3636364 0.5333333   10
+## kthEvaluation 0.7368421 0.8750000 0.6428571 0.8000000 0.7666667   16
+## kthEvaluation 0.3333333 0.4285714 0.7391304 0.3750000 0.6666667    7
+## kthEvaluation 0.4666667 0.7777778 0.6190476 0.5833333 0.6666667    9
+## kthEvaluation 0.3333333 0.5714286 0.6521739 0.4210526 0.6333333    7
+## kthEvaluation 0.3125000 0.7142857 0.5217391 0.4347826 0.5666667    7
+## kthEvaluation 0.4705882 0.7272727 0.5263158 0.5714286 0.6000000   11
+## kthEvaluation 0.5000000 0.8333333 0.7916667 0.6250000 0.8000000    6
+## kthEvaluation 0.5263158 1.0000000 0.5500000 0.6896552 0.7000000   10
+## kthEvaluation 0.3846154 0.6250000 0.6363636 0.4761905 0.6333333    8
+\end{verbatim}
+
+Ok, so not we used the F measure as well. Which gives us a better
+estimate of the performance of the model instead of just simple
+accuracy. This f measure gives us \texttt{A} classification quality,
+\texttt{F} harmonic mean of `S' specificity and `R' recall. Let's take a
+look at the average over all folds.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Average over all folds}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{colMeans}\NormalTok{(evalMeasures))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         P         R         S         F         A      Pos. 
+## 0.4397528 0.6952670 0.6279294 0.5340079 0.6566667 9.1000000
+\end{verbatim}
+
+Ok this is decent, accuracy is 66\%, F is 53\%. Let's learn a bit about
+optimizing this model to make it better!
+
+\hypertarget{optimization}{%
+\subsection{Optimization}\label{optimization}}
+
+To optimize our model we will focus on the cost function, or
+C-parameter. This is because if we minimize the cost function we will
+create a better model that will be more likely to generalize. A low
+C-parameter accepts some missclassification, which is OK because no
+model is perfect. Which essentailly means you cant train and test any
+model on every single data point in the world. Rather creating something
+that generally captures the strucutre of your data is most imporant. So
+let's optimize our C-parameter!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cParameterValues <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.003}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.03}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{ , }\DecValTok{10}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{100}\NormalTok{)}
+\NormalTok{fValues <-}\StringTok{ }\OtherTok{NULL}
+
+\ControlFlowTok{for}\NormalTok{ (cParameter }\ControlFlowTok{in}\NormalTok{ cParameterValues) \{}
+  \KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"C = "}\NormalTok{, cParameter))}
+\NormalTok{  evalMeasures <-}\StringTok{ }\KeywordTok{k_fold_cross_validation}\NormalTok{(annotatedDTM, annotatedLabels, }\DataTypeTok{cost =}\NormalTok{ cParameter)}
+\NormalTok{  fValues <-}\StringTok{ }\KeywordTok{c}\NormalTok{(fValues, evalMeasures[}\StringTok{"F"}\NormalTok{])}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C = 0.003"
+## [1] "C = 0.01"
+## [1] "C = 0.03"
+## [1] "C = 0.1"
+## [1] "C = 0.3"
+## [1] "C = 1"
+## [1] "C = 3"
+## [1] "C = 10"
+## [1] "C = 30"
+## [1] "C = 100"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(fValues, }\DataTypeTok{type=}\StringTok{"o"}\NormalTok{, }\DataTypeTok{col=}\StringTok{"green"}\NormalTok{, }\DataTypeTok{xaxt=}\StringTok{"n"}\NormalTok{)}
+\KeywordTok{axis}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DataTypeTok{at=}\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(cParameterValues), }\DataTypeTok{labels =}\NormalTok{ cParameterValues)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{week6_files/figure-latex/cost-1.pdf}
+
+Ok interesing, it seems to level out after a few indecies. Let's see
+which one is the best!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bestC <-}\StringTok{ }\NormalTok{cParameterValues[}\KeywordTok{which.max}\NormalTok{(fValues)]}
+\KeywordTok{print}\NormalTok{(}\KeywordTok{paste0}\NormalTok{(}\StringTok{"Best C value: "}\NormalTok{, bestC, }\StringTok{", F1 = "}\NormalTok{, }\KeywordTok{max}\NormalTok{(fValues)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Best C value: 3, F1 = 0.542941816588523"
+\end{verbatim}
+
+Great! So the best value for the C-parameter is 3. Next week we will
+look into how to incorporate this into our model :).
+
+\end{document}

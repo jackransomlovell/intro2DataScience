@@ -1,0 +1,210 @@
+---
+title: "week6"
+author: "Jack Lovell"
+date: "11/16/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Text Classification cont.
+
+So last week used used some previous skills to work on text classification, in addition to working on those skills we also buily on them a bit by training a random forest model. Although the training was succesful, and we learned about hwo to tweak a random forest model to improve training performance. We did not test the model at all! Testing your model is one of the most important steps in solving some sort of problem with machine learning. As it affords you an understanding and insight into your model and what it is learning. Without this the model is more or less useless. So let's take a look at training a new model with data we have yet to work with yet, and then go through some common steps done when testing your model. 
+
+## Read in data
+
+So we will want to leverage the useful data from the `quandteda` library. The library is pretty much just used for text analysis and text analysis education in R. It's a bit different from `tidytext` so this will diversify our skills a bit. Let's load in the package and data we are interested in working with below. This script is largely dependent on [this](https://tm4ss.github.io/docs/Tutorial_7_Klassifikation.html) tutorial.
+
+```{r data}
+options(stringsAsFactors = FALSE)
+if(!require(quanteda)) install.packages("quanteda")
+
+textdata <- read.csv("tm4ss.github.io/data/sotu_paragraphs.csv", sep = ";", encoding = "UTF-8")
+
+corpus <- corpus(textdata$text, docnames = textdata$doc_id)
+
+# Build a dictionary of lemmas
+lemma_data <- read.csv("tm4ss.github.io/resources/baseform_en.tsv", encoding = "UTF-8")
+
+# Create a DTM
+corpus_token <- corpus %>% 
+  tokens(remove_punct = TRUE, remove_numbers = TRUE, remove_symbols = TRUE) %>% 
+  tokens_tolower()
+
+corpus_token
+```
+
+Ok great, it looks like we have a TON of data. They all seem to be from some sort of political text. It's from the State of The Union addresses, how fitting for the current times. This is great, we already have out data in a corpus format. Now we just need some training data. See below for loading the training data in! 
+
+```{r training data}
+# Read previously annotated training data
+trainingData <- read.csv2("tm4ss.github.io/data/paragraph_training_data_format.csv", stringsAsFactors = T)
+# Example paragraph Foreign Affairs
+set.seed(13)
+domestic_example <- sample(trainingData$ID[trainingData$LABEL == "DOMESTIC"], 1)
+as.character(texts(corpus)[domestic_example])
+```
+
+
+Ok, very cool, we have loaded our training data in and now we cann see that they are broken up by different topics related to the SOTU addresses. It seems like they are broken up into two different groups `DOMESTIC` and 'FORGEIN' topics. Let's see the ratio between the two. 
+
+```{r ratio}
+numberOfDocuments <- nrow(trainingData)
+table(trainingData[, "LABEL"])
+
+```
+
+Ok, so `DOMESTIC` is certainly more frequent, but thats ok. As you can see above, we will want to keep track of the number of rows in our training data for future use of it during training and testing our model. 
+
+## Create a document-term matrix
+
+In order to begin building a text classification model, we must furst build a matrix that accurately represents the data. In this case we are interested in how many of each unique term there is for each document. This not only gives us insight into various aspects of the document, such as it's sentiment (negative or positive) but it may be a unique feature of a document that will allow a machine learning model to learn something unique about that document. 
+
+```{r d-t matrix}
+# Base line: create feature set out of unigrams
+# Probably the DTM is too big for the classifier. Let us reduce it
+minimumFrequency <- 5
+
+DTM <- corpus_token %>% 
+  dfm() %>% 
+  dfm_trim(min_docfreq = minimumFrequency, max_docfreq = Inf)
+
+# How many features do we have?
+dim(DTM)
+```
+
+Ok great, so we've now created a DTM. We first reduced the sive of the DTM due to the massive dimensionality of our dataset. If we left it as is, the DTM would be insanely large and almost impossible to learn from. We then asked how many features there are, which was given as 21334x10950. That's a lot! This is great, as there is no shortage of data, and we succesfully reduced it's size so the model will be able to learn efficiently. Let's start training! 
+
+# Classification
+
+We will build a linear regression model and a support vector machine model. We have discussed linear regression quite a bit in class so I won't go into detail about it here. But in a SVM we are essentially just fitting a high dimensional plane that most accurately discriminates between two classes. Think of it as two clouds of data in a two dimensional space. One red one blue, and they are generally clustered together, a SVM fits what is called a "hyperplane" between those two clouds, and tries to most accurately classify what a new data point it has not seen before may be. Note that it is typically linear, ie it does not take a quadratic or anyother non-linear shape. See below for a visual description. ![](https://www.google.com/url?sa=i&url=https%3A%2F%2Ftowardsdatascience.com%2Fsupport-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47&psig=AOvVaw3DcDCjCgQxkge04nLYevLx&ust=1605643043336000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCMCWytXsh-0CFQAAAAAdAAAAABAD)
+
+We also need to split our data into a training and testing set. This is extremely important! One of the ten commandments of machine learning is: "Thou shalt not touch the test set!" This is incredibly important as if we start tweaking our model or messing with the test set 
+at all this automatically introduces bias and can very quickly invalidate our model. See below for code
+
+```{r classification}
+if(!require(LiblineaR)) install.packages("LiblineaR")
+if(!require(SparseM)) install.packages("SparseM")
+source("tm4ss.github.io/utils.R")
+
+annotatedDTM <- DTM[trainingData[, "ID"], ]
+annotatedDTM <- convertMatrixToSparseM(annotatedDTM)
+annotatedLabels <- trainingData[, "LABEL"]
+
+# split into training and test set
+selector_idx <- rep(c(rep(TRUE, 4), FALSE), length.out = numberOfDocuments)
+trainingDTM <- annotatedDTM[selector_idx, ]
+trainingLabels <- annotatedLabels[selector_idx]
+testDTM <- annotatedDTM[!selector_idx, ]
+testLabels <- annotatedLabels[!selector_idx]
+
+# create LR classification model
+model <- LiblineaR(trainingDTM, trainingLabels)
+summary(model)
+```
+
+Great! We've created a linear regression model! The summary does not tell us much, so lets look a bit deeper into what is actually happening there. We will do this by trying to predict whether a document in the test dataset of the class `DOMESTIC` or `FORGEIN`. 
+
+```{r predict}
+classification <- predict(model, testDTM) 
+predictedLabels <- classification$predictions
+contingencyTable <- table(predictedLabels, testLabels)
+print(contingencyTable) 
+```
+
+Ok so this gave us a matrix of predicted laberls to the actual test labels, lets calculate a ratio to see how accurate the prediction was. 
+
+```{r predict2}
+accuracy <- sum(diag(contingencyTable)) / length(testLabels)
+print(accuracy) # share of correctly classified paragraphs
+```
+
+Not horrendous for a first try, but we can certainly do better. Let's start to take a look at cross-validation.
+
+## Cross-validation
+
+K-fold classification affords us a more accurate and less biased mean of interpreting the performance of our model. When we do this, we lose the potential learning power from the test data. A k-fold classification will allow us to avoid this, as when we have a k=10, the algorithm will learn from 9 folds, and test on the 10th. It will do this for all the data and give a better estimate of performace. 
+
+```{r cv}
+get_k_fold_logical_indexes <- function(j, k, n) {
+  if (j > k) stop("Cannot select fold larger than nFolds")
+  fold_lidx <- rep(FALSE, k)
+  fold_lidx[j] <- TRUE
+  fold_lidx <- rep(fold_lidx, length.out = n)
+  return(fold_lidx)
+}
+
+# Example usage
+get_k_fold_logical_indexes(1, k = 10, n = 12)
+```
+
+Cool this gives us an example of 10 folds to a data frame of size n. Let's try it on our actual data! 
+
+```{r cv2}
+k <- 10
+evalMeasures <- NULL
+for (j in 1:k) {
+  # create j-th boolean selection vector
+  currentFold <- get_k_fold_logical_indexes(j, k, nrow(trainingDTM))
+  
+  # select training data split
+  foldDTM <- annotatedDTM[!currentFold, ]
+  foldLabels <- annotatedLabels[!currentFold]
+  
+  # create model
+  model <- LiblineaR(foldDTM, foldLabels)
+  
+  # select test data split
+  testSet <- annotatedDTM[currentFold, ]
+  testLabels <- annotatedLabels[currentFold]
+  
+  # predict test labels
+  predictedLabels <- predict(model, testSet)$predictions
+  
+  # evaluate predicted against test labels
+  kthEvaluation <- F.measure(predictedLabels, testLabels, positiveClassName = "FOREIGN")
+  
+  # combine evaluation measures for k runs
+  evalMeasures <- rbind(evalMeasures, kthEvaluation)
+}
+# Final evaluation values of k runs:
+print(evalMeasures)
+```
+
+Ok, so not we used the F measure as well. Which gives us a better estimate of the performance of the model instead of just simple accuracy. This f measure gives us `A` classification quality, `F` harmonic mean of 'S' specificity and 'R' recall. Let's take a look at the average over all folds. 
+
+```{r summary}
+# Average over all folds
+print(colMeans(evalMeasures))
+```
+
+Ok this is decent, accuracy is 66%, F is 53%. Let's learn a bit about optimizing this model to make it better! 
+
+## Optimization
+
+To optimize our model we will focus on the cost function, or C-parameter. This is because if we minimize the cost function we will create a better model that will be more likely to generalize. A low C-parameter accepts some missclassification, which is OK because no model is perfect. Which essentailly means you cant train and test any model on every single data point in the world. Rather creating something that generally captures the strucutre of your data is most imporant. So let's optimize our C-parameter! 
+
+```{r cost}
+cParameterValues <- c(0.003, 0.01, 0.03, 0.1, 0.3, 1, 3 , 10, 30, 100)
+fValues <- NULL
+
+for (cParameter in cParameterValues) {
+  print(paste0("C = ", cParameter))
+  evalMeasures <- k_fold_cross_validation(annotatedDTM, annotatedLabels, cost = cParameter)
+  fValues <- c(fValues, evalMeasures["F"])
+}
+plot(fValues, type="o", col="green", xaxt="n")
+axis(1,at=1:length(cParameterValues), labels = cParameterValues)
+```
+
+Ok interesing, it seems to level out after a few indecies. Let's see which one is the best! 
+```{r c}
+bestC <- cParameterValues[which.max(fValues)]
+print(paste0("Best C value: ", bestC, ", F1 = ", max(fValues)))
+```
+
+Great! So the best value for the C-parameter is 3. Next week we will look into how to incorporate this into our model :). 

@@ -1,0 +1,459 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={biweekly1\_textpreproc},
+  pdfauthor={Jack Lovell},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{biweekly1\_textpreproc}
+\author{Jack Lovell}
+\date{9/3/2020}
+
+\begin{document}
+\maketitle
+
+\#Introduction Meta-analyses in neuroimaging have yielded great promise
+in understanding various functional connectomes represented in the human
+brain. In a field where many studies are badly under powered (Turner,
+Miller, et al., Commun Biol, 2018) and a large amount of variability is
+observed in the methods used to analyze data (Botvinik-Nezer, Nature,
+2020), meta-analytic approaches provide a means to gaining a general
+understanding of how networks of activity might be represented in the
+brain during a particular psychological event. Although a powerful tool
+to aggregate the majority of data published in a field of study, this
+approach is not immune to it's flaws and limitations. A major step in
+conducting a meta-analysis is collecting a database of journal articles
+that report data related to your scientific question. This is often done
+by conducting a search of terms related to the particular psychological
+construct you as a researcher are interested in studying. These searches
+can be completed in databases such as Google Scholar and PubMed. This
+process often yields thousands of articles that will not be included in
+the analysis, and a large part of the meta-analytic process is going
+through these databases and deciding whether or not you would like to
+include any given paper in your study. This can consume a large amount
+of time and resources, and can often extend the timeline of
+meta-analysis to the scale of several years. In addition to being a
+timely process, sorting through thousands of papers by hand will
+certainly result in human error. Tired eyes under pressure to deliver
+and complete the task will in turn result in errors when deciding a
+paper should be included or not. An excellent way to potentially
+streamline this process is leveraging the power of Natural Language
+Processing (NLP). NLP has been previously used to make this process more
+efficient and less prone to human error (Bao Y, Deng Z, Wang Y, et al.,
+JCO Clin Cancer Inform. 2019). As a budding researcher who would not
+only like to make the process of paper selection for meta-analyses less
+painful, but also learn more about how to model text data. I am
+currently preparing a dataset for a meta-analysis studying the brain
+correlates of autonomic nervous system function. We are getting closer
+each day to a final dataset, but it is not at the point in which I can
+use it to learn how to clean text data. I also would rather practice on
+a different dataset, so no fatal mistakes are made on the precious data
+we have taken so long to prepare as a team. Thus I will be using data
+accessed through twitter's API as practice, and focusing on the real
+data in later reports.
+
+The first step is any analysis is curating and cleaning your data. Due
+to the fact that we are still in the paper selection process (i.e.~the
+data are still being prepared), I will use data publicly available via
+web scraping. The rest of this report will be centered around several
+blog posts made by Irfan Alghani Khalid which can be found by following
+this link:
+\url{https://towardsdatascience.com/text-mining-with-r-gathering-and-cleaning-data-8f8b0d65e67c}
+
+Your first step should be setting up a twitter API which can be done
+here: \url{https://developer.twitter.com/en/apply-for-access}
+
+We will be focusing this tutorial on comments made by Indonesian
+netizens taken from a large media outlet called Kompas.
+
+To get our data into R we will want to import the `rtweet' library and
+create our own twitter authorization token, which will contain important
+information that will allow us to access the API. We will also go
+through various steps to clean the data and get it from the twitter API.
+There are some features in the code that we haven't leanred about, such
+as pipe. I have been exposed to this and other concepts in R before
+(kaggle comps and other classes), so I am not completely blind to this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Import rtweet}
+\KeywordTok{library}\NormalTok{(rtweet)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Use our own token}
+\NormalTok{twitter_token <-}\StringTok{ }\KeywordTok{create_token}\NormalTok{(}
+  \DataTypeTok{app =} \StringTok{'meta_nlp'}\NormalTok{,}
+  \DataTypeTok{consumer_key=}\StringTok{"pzOo1DHoCGpIjElgpHzVDHgl4"}\NormalTok{,}
+  \DataTypeTok{consumer_secret=}\StringTok{"QpTDNngQEDv9CkroVTjBlpRQcoL4iJvGkrAqPNAmXrIFdEVSNE"}\NormalTok{,}
+  \DataTypeTok{access_token=}\StringTok{"1301874142359293952-K7O1mzxSh7PEPR799S9Db3cfHzLx97"}\NormalTok{,}
+  \DataTypeTok{access_secret=}\StringTok{"mOvMMSEmBGZwT9sqZzuX8Oe1K2PRFwohGEOA6KEkxXZ1w"}
+\NormalTok{)}
+\CommentTok{#search twitter}
+\NormalTok{news_tweets <-}\StringTok{ }\KeywordTok{search_tweets}\NormalTok{(}\StringTok{"to:kompascom"}\NormalTok{, }\DataTypeTok{n =} \DecValTok{18000}\NormalTok{, }\DataTypeTok{include_rts =}\NormalTok{ F)}
+\CommentTok{#select columns that we'd like}
+\NormalTok{data_fix <-}\StringTok{ }\NormalTok{news_tweets}\OperatorTok{%>%}
+\StringTok{              }\CommentTok{#remove duplicates}
+\StringTok{              }\KeywordTok{distinct}\NormalTok{(text, }\DataTypeTok{.keep_all =}\NormalTok{ T)}\OperatorTok{%>%}
+\StringTok{              }\CommentTok{#take text only}
+\StringTok{              }\KeywordTok{select}\NormalTok{(created_at, text)}
+\CommentTok{#create an id as the tweet identifier}
+\NormalTok{data_fix[}\StringTok{"id"}\NormalTok{]<-}\DecValTok{1}\OperatorTok{:}\KeywordTok{nrow}\NormalTok{(data_fix)}
+\CommentTok{#Convert when the tweet was created to the data format}
+\NormalTok{data_fix}\OperatorTok{$}\NormalTok{created_at <-}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(data_fix}\OperatorTok{$}\NormalTok{created_at, }\DataTypeTok{format =} \StringTok{"%Y-%m-%d"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we have about 18,000! tweets that replied to the user Kompass! After
+we run our code we then have \textasciitilde{} 8603 tweets and 90
+different columns (variables of features). We will not use all columns
+but rather the date and text from the tweet. We also added an identifier
+column and removed any duplicates thus we are left with: 8451 tweets and
+3 columns
+
+\#Data Cleaning Without data cleaning our data are full of noise, and
+often if we try to fit a model to them our results will be
+uninterpretable. Or worse it will yield some meaningful results but then
+fail miserably when we test it on a holdout dataset.
+
+In the case of text, words and symbols that are not relevant to the text
+we care about can add to this noise. For twitter, this includes mentions
+(@user), hashtags(\#stat2600), and many others.
+
+In text cleaning there is also something called stop words. Which is
+essentially a word that does not add to the semantic meaning of a text.
+If we want an algorithm to understand the semantic meaning of a text
+then we will want to maximize the data which captures this. We are
+working in the language of Indonesian, which I do not speak. Although
+the author of the blog post provided some useful stop words to exclude
+in a git repo found
+here:\url{https://github.com/safieranurul/Cleaning-Text-Bahasa-Indonesia.git}
+
+If following along please clone that and we will use it throughout the
+text! Notice the use of the function gsub below. The function takes 3
+parameters: the pattern of symbols or words in a string forat, it's
+replacement, and the data we would like to perform the operation on.
+Botice every replacement is either a " " or "".
+
+So let's remove those useless symbols and stop words.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#get text}
+\NormalTok{text <-}\StringTok{ }\NormalTok{data_fix}\OperatorTok{$}\NormalTok{text}
+
+\CommentTok{#set the text to lowercase}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{tolower}\NormalTok{(text)}
+
+\CommentTok{#remove mentions, urls, emojis, numbers, punctuations, all that crap!}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"@}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"https?://.+"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d+}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w*}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{d*"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"#}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{w+"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[^}\CharTok{\textbackslash{}x01}\StringTok{-}\CharTok{\textbackslash{}x7F}\StringTok{]"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[[:punct:]]"}\NormalTok{, }\StringTok{" "}\NormalTok{, text)}
+
+\CommentTok{#remove space and newlines}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\StringTok{" "}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"^}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{s+"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{s+$"}\NormalTok{, }\StringTok{""}\NormalTok{, text)}
+\NormalTok{text <-}\StringTok{ }\KeywordTok{gsub}\NormalTok{(}\StringTok{"[ |}\CharTok{\textbackslash{}t}\StringTok{]+"}\NormalTok{, }\StringTok{" "}\NormalTok{, text)}
+
+\CommentTok{#get it all into a new column}
+\NormalTok{data_fix[}\StringTok{"fix_text"}\NormalTok{] <-}\StringTok{ }\NormalTok{text}
+\KeywordTok{head}\NormalTok{(data_fix}\OperatorTok{$}\NormalTok{fix_text,}\DecValTok{100}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] "udah lha partai ini uda terkenal cari untung melulu ngga usah heran dulu koalisi dgn partai sekelas dan aj dia tinggal apalagi cuma tinggalin partai"                                                                                                                              
+##   [2] "mas mungkin ini mba miranti pas naikin artikel ini belum ngopi katana mas itu harusnya bukan samurai"                                                                                                                                                                              
+##   [3] "ga bakalan jg mau reformasi kelakuan loe aja dulu taz akhlak loe aja minus ga pernah terbang di business class sih ya sblmnya atau kmrn baru pertama kali naik pesawat jd norak"                                                                                                   
+##   [4] "lebih mengkhawatirkan karena ibukota ini kepala daerahnya yang don t know what to do kebanyakan ngomong tapi ga ada hasil kerjanya sama sekali wajar sih dia sebut mengkhawatirkan krn dia tau dia penyebabnya"                                                                    
+##   [5] "lho memang kenyataannya ga mendidik kok"                                                                                                                                                                                                                                           
+##   [6] "klo udh gni ntr dikira sulapan"                                                                                                                                                                                                                                                    
+##   [7] "yg jelas ini dampak belajar dari rumah ibu ini paling sayang sama anaknya agar ia kelak dapat berguna dan tidak bodoh para ibu pastinya sudah merasakan mendidik anak di rumah mengambil alih sebagian peran guru yg ada di sekolahan"                                             
+##   [8] "good orang berduit gak punya otak"                                                                                                                                                                                                                                                 
+##   [9] "bingung hitungannga gimana padahal pln itu monopoli listrik satu satunya provider listrik perasaan tagihan naik terus"                                                                                                                                                             
+##  [10] "lho bukannya yang beginian karena perintah dari kepala"                                                                                                                                                                                                                            
+##  [11] "sudahlah min capek banget sih ketik artikel beginian"                                                                                                                                                                                                                              
+##  [12] "kasihaaannn link please"                                                                                                                                                                                                                                                           
+##  [13] "klo tagihan cc ya udhlah ya sebulan sekali doang lah td baca berita transaksi saham jg kena ampun deh"                                                                                                                                                                             
+##  [14] "adele sibuk diet badgal riri sibuk bisnis make up pd gk ada niatan bikin album lg apa"                                                                                                                                                                                             
+##  [15] "knp harus di trotoar saya tiap weekdays jalan kaki dr st sudirman ifc udh enak luas please jgn diapa lg udah bagus ini"                                                                                                                                                            
+##  [16] "percepat di q thh ini dong pak bayar jg gpp pengen keluar kota liburan ngabisin cuti"                                                                                                                                                                                              
+##  [17] "pak pertegas yg gak pakai masker dong makin banyak lho yg keluar gak pakai masker"                                                                                                                                                                                                 
+##  [18] "ntn drakor kayanye nih"                                                                                                                                                                                                                                                            
+##  [19] "lah bijimane"                                                                                                                                                                                                                                                                      
+##  [20] "gimane di latih kim jong un coba"                                                                                                                                                                                                                                                  
+##  [21] "jangan jangan"                                                                                                                                                                                                                                                                     
+##  [22] "gw yakin klub ini bisa"                                                                                                                                                                                                                                                            
+##  [23] "kebanyakan ntn pelem robocop nih"                                                                                                                                                                                                                                                  
+##  [24] "apa masih keluarga bart simpson"                                                                                                                                                                                                                                                   
+##  [25] "bodoamat"                                                                                                                                                                                                                                                                          
+##  [26] "harusnye bukan peti mati tapi kurung batang keranda yang ade kainnya yg dipakai buat peringatan bahwa corona itu amat berbahaya"                                                                                                                                                   
+##  [27] "kalo pake bank keliling brape lama tuh"                                                                                                                                                                                                                                            
+##  [28] "mungkin maunye maen bareng barry prima cuma nebak"                                                                                                                                                                                                                                 
+##  [29] "percuma kalo ga dikasih tau password nya apa"                                                                                                                                                                                                                                      
+##  [30] "rip atitude"                                                                                                                                                                                                                                                                       
+##  [31] "beragama itu belum tentu bermoral bermoral bisa jadi hanya pencitraan karena kalo orang tidak suka ada perbuatan mesum tapi melakukan hukuman dengan cara yang mesum ini bisa disebut apa menikmati bersama kah ahaiii yaa rata mah lingkungan itu buruk biasanya"                 
+##  [32] "memangnya dia mau ke madrid"                                                                                                                                                                                                                                                       
+##  [33] "pantas dapat nobel nih penelitiannya"                                                                                                                                                                                                                                              
+##  [34] "ntar dibilang melawan sunnatullah lho"                                                                                                                                                                                                                                             
+##  [35] "gubernur ter baka"                                                                                                                                                                                                                                                                 
+##  [36] "ya allah kasiannnnn fak the polissssss men tembak aje"                                                                                                                                                                                                                             
+##  [37] "sebuah kolaborasi epik antara kurang kerjaan dan hiburan"                                                                                                                                                                                                                          
+##  [38] "semoga yg ngarak diproses hukum abis ini"                                                                                                                                                                                                                                          
+##  [39] "tak usah khawatir lh bos kan loe dah siapin peti mati coba di chek dlu tuh anggarannya drimana y bikin begituan sesuai tak proyek tak jelas mulu pada"                                                                                                                             
+##  [40] "astaga"                                                                                                                                                                                                                                                                            
+##  [41] "jangankan buat sepeda tol buat jalur busway aja ga di kasih"                                                                                                                                                                                                                       
+##  [42] "trotoar untuk pejalan kaki"                                                                                                                                                                                                                                                        
+##  [43] "iri bilang boss wkwkwkwkwk"                                                                                                                                                                                                                                                        
+##  [44] "city di prank messi"                                                                                                                                                                                                                                                               
+##  [45] "ngga ada de vrij"                                                                                                                                                                                                                                                                  
+##  [46] "warganya babi banget"                                                                                                                                                                                                                                                              
+##  [47] "godher umak mess kakeen drama"                                                                                                                                                                                                                                                     
+##  [48] "pake peraturan protokol penanganan covid kan bisa easy"                                                                                                                                                                                                                            
+##  [49] "kios model kayak apa nih kayak di jepang apa kayak di bekasi"                                                                                                                                                                                                                      
+##  [50] "katanya disiarkan live min ga jadi ya"                                                                                                                                                                                                                                             
+##  [51] "minyak biji bunga matahari"                                                                                                                                                                                                                                                        
+##  [52] "geli bukan berarti takut"                                                                                                                                                                                                                                                          
+##  [53] "udah ditertibin di rusak lagi bodoh"                                                                                                                                                                                                                                               
+##  [54] "kalian ini rebutan jadi presiden janji janji manis pada kampanye ternyata semua itu tipu daya agar bisa merampok negara ini kalian lebih kejam dari penjajah kalau penjajah mereka bangsa lain tapi kalian katanya wni tapi nyatanya kalian lebih rakus dari penjajah"             
+##  [55] "we dont know what we dont know"                                                                                                                                                                                                                                                    
+##  [56] "ooo ternyata ini tujuan trotoar dilebarin buat buka kios jualan ya hhhmmm geberner geblek"                                                                                                                                                                                         
+##  [57] "trus bacot doang apa buat lebih banyak peti mati lagi buat dipajang ya"                                                                                                                                                                                                            
+##  [58] "mosok ap benar"                                                                                                                                                                                                                                                                    
+##  [59] "miss u legend"                                                                                                                                                                                                                                                                     
+##  [60] "sdh waktu nya para pelaku hoax fitnah dihukum beserta mereka yg secara fisik melakukan teror kekerasan atas hoax fitnah tsb alasan tertipu itu sungguh basi dan banci basi karena manusia punya otak untuk berpikir menyaring banci karena berbuat tapi penuh alasan untuk bebas"  
+##  [61] "setuju aktivitas dgn protokol covid yg pro lockdown ga usah protes lockdown aja diri lu sendiri ya gw masih perlu aktif cari duit yg ga perlu silahkan diam aja di rumah"                                                                                                          
+##  [62] "lha koq ditolak brilian ituuuu eh masuk neraka lu semua"                                                                                                                                                                                                                           
+##  [63] "goblog pake banget nih ahli nya"                                                                                                                                                                                                                                                   
+##  [64] "skenario picisan dan kalo penegak hukumnya gampang percaya gt kita sedang berada di film bolywood"                                                                                                                                                                                 
+##  [65] "hukuman pemaksanya harus denda secara financial dgn tahapan gradasi meningkat aja warga lebih sayang kehilangan duit daripada mati malah banyak yg gak peduli kalau dirinya adalah ancaman buat keselamatan orang lain"                                                            
+##  [66] "yg komen jiwa kpai nya auto bergejolak pada ngerasa lebih hebat ngurus anak wkt kasus ferdian palengka ga pada mikir si bgst di didik apa sama ortunya kalo dasarnya bgst lu didik lemah lembut juga tetep aja jd bgst"                                                            
+##  [67] "bacot doang"                                                                                                                                                                                                                                                                       
+##  [68] "ini bener pilih ga jalani aturan yang bukan cuma nyeleneh tapi malah berpotensi naikin resiko penularan pertanyaannya dari kemarin ada orang selalu kasih ide yang konyol di dki itu sapa anaknya malu sekaligus ngeselin dah"                                                     
+##  [69] "kebodohan hakiki yg tiada akhirnya dan masih ada aja yg puja dia au ah"                                                                                                                                                                                                            
+##  [70] "wkwkwkwk"                                                                                                                                                                                                                                                                          
+##  [71] "baru mikir efektif oy dari kemaren yg kasih peraturan ijin demo sapa"                                                                                                                                                                                                              
+##  [72] "yg bakal kena yg sebarluasin video tsb lah masyarakat pelaku penghinaan gak kena emang ada hukum adat yg nyebutin kalo melakukan tindak zina atau mesum hukumannya di telanjangin kemudian diarak abis ini warga yg kemarin abis ngarak tu orang jadi ngerasa udah yg paling bener"
+##  [73] "harusnya kategorinya bukan suap dong berkomplot melawan hukum kalo suap tu pejabat penerima suap dan terdakwa tidak kemudian hangout bareng"                                                                                                                                       
+##  [74] "yak mulaik"                                                                                                                                                                                                                                                                        
+##  [75] "pola pikirnya kok aneh ya kalo ada masalah di tubuh kita yg harus diobatin dan dirawat ya organ tubuh kita tsb kok malah dgn gampang implan organ asing secara masih ada kemungkinan terjadi gagal fungsi dan infeksi ini pola pikir orang yg terbiasa hidup dgn banyak duit"      
+##  [76] "kek nya ga perlu deh emang sebelumnya kebijakan moneter negara kita sapa yg atur kalo selama ini pengaturan kebijakan moneter dirasa kurang baik yg dibenerin ya lembaga keuangan tsb atau kalo maksa harus ada dewan ini bubarin dulu lembaga keuangan yg dianggap gagal td"      
+##  [77] "mahasiswa kok begini"                                                                                                                                                                                                                                                              
+##  [78] "tembak atau suntik mati aja lah nyusahin amat kaya yg ga ada urusan lain yg lebih penting"                                                                                                                                                                                         
+##  [79] "lah gimana ceritanya itu tersangka bisa request jadwal proses pemeriksaan thd dirinya luar biasa fleksible kalo yg bermasalah orang berduit ya payah"                                                                                                                              
+##  [80] "apanya yg aneh"                                                                                                                                                                                                                                                                    
+##  [81] ""                                                                                                                                                                                                                                                                                  
+##  [82] "dan indahnya negara negara itu gak punya warga cebong cahaya purnama"                                                                                                                                                                                                              
+##  [83] ""                                                                                                                                                                                                                                                                                  
+##  [84] ""                                                                                                                                                                                                                                                                                  
+##  [85] "masa pinjam pak"                                                                                                                                                                                                                                                                   
+##  [86] ""                                                                                                                                                                                                                                                                                  
+##  [87] "emangnya gak punya wamen"                                                                                                                                                                                                                                                          
+##  [88] "aku setuju sih asal kiosknya di desain tematik dan instagrammable gitu makin ciamik dah"                                                                                                                                                                                           
+##  [89] "memanusiakan manusia itu memang sulit"                                                                                                                                                                                                                                             
+##  [90] "bangsat emang pol pp"                                                                                                                                                                                                                                                              
+##  [91] "saya bank mandiri blm cair"                                                                                                                                                                                                                                                        
+##  [92] "mati aja loe psk eh pks gak ada yg mau koalisi ma loe kalo masih bawa agama gak laku njirrrr"                                                                                                                                                                                      
+##  [93] "karena gub nya maka nya mengkhawatir kan contoh sepeda masuk tol ganjil genap motor"                                                                                                                                                                                               
+##  [94] "kadrun"                                                                                                                                                                                                                                                                            
+##  [95] "psk eh pks makin ketinggalan"                                                                                                                                                                                                                                                      
+##  [96] "please jangan kaya gini kalo jadi orang tua anak akan menjadi seperti apa itu tergantung hasil didikan orang tua"                                                                                                                                                                  
+##  [97] "kepedulian sebagai anak bangsa t idak percaya saya"                                                                                                                                                                                                                                
+##  [98] "susu ibunya atau susu ibu hewan lain"                                                                                                                                                                                                                                              
+##  [99] "gak paham esensinya ngapain ditembak dah sapi loh bukan harimau"                                                                                                                                                                                                                   
+## [100] "tanya kenapa adat melayu kah ini haha"
+\end{verbatim}
+
+Notice the use of the `\textbackslash w+' character when removing
+symbols. This is saying, substitute any @ symbol that is then followed
+by \textbackslash w any word containing characters ranging from A-Z, a-z
+and 0-9. So every word! The + signifies that there are one or more
+characters in the string. We don't want mentions as they don't mean
+anything in the context of the rest of the text. Note that this is very
+different from controlling for confounds that are inherent within you
+data (i.e.~artifiacts that interfere with the true signal).
+
+We also want to put our data into tiny data format, and remove stop
+words. To do so please see the code below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidytext)}
+\CommentTok{#remove stopwords}
+\NormalTok{stop_id <-}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\KeywordTok{paste}\NormalTok{(}\KeywordTok{getwd}\NormalTok{(), }\StringTok{"/ID-stopwords.txt"}\NormalTok{, }\DataTypeTok{sep=}\StringTok{""}\NormalTok{), }\KeywordTok{character}\NormalTok{(), }\DataTypeTok{sep =} \StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+
+\CommentTok{# create df of stopwords}
+\NormalTok{stop_words <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+\NormalTok{  word <-}\StringTok{ }\NormalTok{stop_id,}
+  \DataTypeTok{straingsAsFactors =}\NormalTok{ F}
+\NormalTok{)}
+\KeywordTok{colnames}\NormalTok{(stop_words) <-}\StringTok{ "word"}
+
+\CommentTok{#convert to tidy}
+\NormalTok{tidy_text <-}\StringTok{ }\NormalTok{data_fix }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(created_at, id, fix_text)}\OperatorTok{%>%}
+\StringTok{  }\CommentTok{#tokenize the word from the tweets}
+\StringTok{  }\KeywordTok{unnest_tokens}\NormalTok{(}\DataTypeTok{input=}\NormalTok{fix_text, }\DataTypeTok{output =}\NormalTok{word)}\OperatorTok{%>%}
+\StringTok{  }\CommentTok{#remove stop words}
+\StringTok{  }\KeywordTok{anti_join}\NormalTok{(stop_words, }\DataTypeTok{by=}\StringTok{"word"}\NormalTok{)}
+\NormalTok{tidy_text}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 62,668 x 3
+##    created_at    id word    
+##    <date>     <int> <chr>   
+##  1 2020-09-04     1 udah    
+##  2 2020-09-04     1 lha     
+##  3 2020-09-04     1 partai  
+##  4 2020-09-04     1 uda     
+##  5 2020-09-04     1 terkenal
+##  6 2020-09-04     1 cari    
+##  7 2020-09-04     1 untung  
+##  8 2020-09-04     1 melulu  
+##  9 2020-09-04     1 ngga    
+## 10 2020-09-04     1 heran   
+## # ... with 62,658 more rows
+\end{verbatim}
+
+\#Conclusion Cleaning your data is an incredibly important step in any
+analysis. It is important to keep these methods structured, backed by
+evidence, and well documented. If there is flexibility across pipelines
+that are studying a similar field of study, that can often result in
+serious variability in results as we saw in Botvinik-Nezer 2020. With
+that said, you want to make sure you would like to preserve the data you
+are interested in, and remove anything that is not relevant. That
+decision is unique to every project. In the case of our twitter data,
+symbols were excluded as we were more interested in the semantic text.
+If we were interested in analyzing the average number of times a company
+was mentioned on twitter across several years, we would obviously change
+what text we would like to include and exclude. With that said, there
+were some comprehensive and general skills demonstrated here, that are
+relevant to the problem introduced in the beginning of this report. I
+would also like to mention that the code broke several times when
+applying it to my own twitter API app. Debugging wasn't an extremely
+difficult task, but it certinaly was non trivial. Next report I plan to
+extend on data preprocessing techniques and apply some of the skills I
+learned this week to a novel dataset.
+
+\end{document}

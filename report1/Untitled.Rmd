@@ -1,0 +1,83 @@
+---
+title: "left_over_analysis"
+author: "Jack Lovell"
+date: "9/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+Tokenization is an essential process in any NLP project, I will leave the explanation to the experts: “Tokenization is the process of breaking a stream of text into words, phrases, symbols, or other meaningful elements called tokens. The aim of the tokenization is the exploration of the words in a sentence. The list of tokens becomes input for further processing such as parsing or text mining.” (Gurusamy and Kannan, 2014). Thus, we will leverage the usefulness of the "tm" library and tokenize our corpus. 
+
+```{r tokenization}
+##Tokenization: Split a text into single word terms called "unigrams" 
+text_corpus_clean<-Boost_tokenizer(text_corpus[[2]]$content)
+text_corpus_clean
+```
+Great, we have now tokenized the entirety of the corpus which essentially means we have a vector of characters for each word, symbol, or space of text in the corpus. As you can see this is quite a large output, 3619 to be exact... 
+This is useful but we still have some work to do, it's nice that we have all of these separated into a useful data type, but we want to be able to actually work with the data. In it's current state it's littered with white spaces and symbols, as well as line breaks. It also is all over the place in terms of capitalization, which we don't care about because we're only interested in the semantic meaning of the words themselves. This process is often known as normalization and can be summarized in the following three steps: 
+- converting all letters to lower or upper case
+- removing punctuations,  numbers and white spaces
+- removing stop words, sparce terms and particular words
+```{r normalization}
+#Normalization: lowercase the words and remove punctuation and numbers
+#tm_map allows us to apply a number of normalizing functions to the same corpus
+text_corpus_clean<-tm_map(text_corpus, content_transformer(tolower))
+text_corpus_clean <- tm_map(text_corpus_clean, removePunctuation)
+text_corpus_clean <- tm_map(text_corpus_clean, removeNumbers)
+text_corpus_clean <- tm_map(text_corpus_clean, stripWhitespace)
+#remove stop words
+myStopwords <- c(stopwords('english'), "a", "b") 
+text_corpus_clean <- tm_map(text_corpus_clean,removeWords, myStopwords)
+#check to see if cleaned corpus and original are the same
+text_corpus_clean[[2]]$content == text_corpus
+text_corpus_clean[[2]]$content
+```
+Great! Now we have a tokenized corpus that has been normalized as well. We can confirm that our operations have worked by taking a look at the outcome of setting our two lists equal to eachother, and also taking a look at the content it self. 
+
+## Stemming
+We also want to draw words like "troubled" and "troubles" back to their root word of "trouble". Another example is bringing words like "presentation", "presented", and "presenting" back to present. It is importnant to be rigorous with our method here, as under-stemming and over-stemming can occur which is elegantly explained below:
+“There are mainly two errors in stemming. Over stemming and under stemming. Over-stemming is when two words with different stems are stemmed to the same root. This is also known as a false positive. Under-stemming is when two words that should be stemmed to the same root are not. This is also known as a false negative.“(Gurusamy and Kannan, 2014)
+
+We will use the tm library again to achieve this
+```{r stemming}
+text_corpus_clean <- tm_map(text_corpus_clean, stemDocument, language = "english")
+```
+We now want to write our data to a document term matrix. This is a sparse term matrix where each row is a document vector, with one column for every term in the corpus.
+```{r matrix}
+tdm <- TermDocumentMatrix(text_corpus_clean)
+inspect(tdm)
+#Frequent terms that occur between 30 and 50 times in the corpus
+frequent_terms <- findFreqTerms (tdm,30,50) 
+
+#Word Frequency
+library(knitr) 
+# Sum all columns(words) to get frequency
+words_frequency <- colSums(as.matrix(tdm)) 
+# create sort order (descending) for matrix
+ord <- order(words_frequency, decreasing=TRUE)
+
+# get the top 20 words by frequency of appeearance
+words_frequency[head(ord, 20)] %>% 
+kable()
+```
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

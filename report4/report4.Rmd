@@ -1,0 +1,72 @@
+---
+title: "Markovian Emotions"
+author: "Jack Lovell"
+date: "10/19/2020"
+output: pdf_document
+---
+
+```{r setup, include = F}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# What is a Markov-Chain?
+
+Markovian processes can be summed up by a simple sentence: "*(a markovian process) is a stochastic model describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event*" By stochastic, we mean random, and this idea can be visaulized thorugh the graphic displayed below: 
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Markovkate_01.svg/220px-Markovkate_01.svg.png)
+
+In this case we have states: $$A$$ and $$E$$. In any case where we have two states, we have 4 types of transitions: From $$E$$ back to $$E$$, from $$E$$ to $$A$$, from $$A$$ to $$E$$, and from $$A$$ to $$A$$. Each transition can be modeled by how likely an agent is to transition from one state to another, such as $$A$$ → $$B$$. This probability is only dependent on the agent's current state and can be summarized below: 
+
+![](https://miro.medium.com/max/300/1*wAtMKljO3SMCqxRFf5mCTQ.png)
+Where $$P~ij$$ signifies the probability of the agent tranisiton from state $$i$$ to state $$j$$, if our agent's state is the ranomd variable $$X$$. Well, that probability is simply the conditional probability that $$X$$ will transition to state $$j$$ given it is in state $$i$$. Thus, the future state of an agent is only dependent on it's current state! 
+
+# Using a markovian process to model emotions
+
+Markovian processes have been used to model a large number of natural phenomena, ranging from physics and chemistry, to biology and social sciences! Often the probabilities discussed above can be sumarized in a transtion matrix as seen below: 
+
+![](http://www.sosmath.com/matrix/markov/img2.gif)
+
+This is also know as a *stochastic matrix* and gives us loads of insight into what our agent is doing! Trnasition matrices get's me thinking, what about the transitions between emotions? Well luckily a paper already published a ton of work on this! 
+
+## Thorton et al. 2016, PNAS 
+
+In 2016, Mike Thorton and co. published a paper that aimed to quantify how accurate people's mental models of emotion transitions are of actual transitions between emotions. Even though the main objective of the paper was not necessarily what we are interested in, they still have valuable data for us to use (i.e. the transition matricies from ground truth studies)! So let's go ahead and take a look at them. 
+
+```{r}
+#data
+setwd("~/Desktop/report4/")
+gtrans <- read.csv("study3/ground_transition_odds.csv")
+gtrans
+```
+
+Ok great! Now we have a set of emotions and their transitions! They are normed to their frequency, for various reasons but this may give us trouble, so let's come back to that next time. For now, we can estimate and plot a markov chain! 
+
+```{r}
+if(!require(markovchain)) install.packages("markovchain"); require(markovchain)
+#now lets call a new markovchain instance
+mcEmotion <-  new("markovchain", states = gtrans[,1], byrow=T, transitionMatrix=as.matrix(gtrans[,2:19]), name = "EmoMarkov")
+```
+
+It doesn't work! God dangit!!! Why not? Well it is because the sums of the rows do not add to one, this is because they are normalized to the frequency! This will take some effort to fix, and I do not have the time to do so. So let's save it for next week, right now, we can use the example in the ```markovchain``` package to learn some more about how to code a Markov Chain in R.
+
+```{r markov}
+if(!require(markovchain)) install.packages("markovchain"); require(markovchain)
+weatherStates <- c("sunny", "cloudy", "rain")
+byRow <- TRUE
+weatherMatrix <- matrix(data = c(0.70, 0.2, 0.1,
+                                 0.3, 0.4, 0.3,
+                                 0.2, 0.45, 0.35), byrow = byRow, nrow = 3, 
+                                dimnames = list(weatherStates, weatherStates))
+mcWeather <- new("markovchain", states = weatherStates, byrow = byRow,
+                  transitionMatrix = weatherMatrix, name = "Weather")
+mcWeather
+```
+Great! By doing so we get a sweet transition matrix from a discrete Markov Chain with 3 dimensions, now let's visualize it! 
+```{r}
+plot(mcWeather)
+```
+Aweosme! This looks so great! Not ideal that we were unable to do this for emotions, but I will be stopping by office hours to discuss an approach to compute the transition probabilities for each state. That's all for now bye-bye!! 
+
+
+

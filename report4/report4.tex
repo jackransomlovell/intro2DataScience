@@ -1,0 +1,312 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Markovian Emotions},
+  pdfauthor={Jack Lovell},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Markovian Emotions}
+\author{Jack Lovell}
+\date{10/19/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{what-is-a-markov-chain}{%
+\section{What is a Markov-Chain?}\label{what-is-a-markov-chain}}
+
+Markovian processes can be summed up by a simple sentence: ``\emph{(a
+markovian process) is a stochastic model describing a sequence of
+possible events in which the probability of each event depends only on
+the state attained in the previous event}'' By stochastic, we mean
+random, and this idea can be visaulized thorugh the graphic displayed
+below:
+
+\includegraphics{https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Markovkate_01.svg/220px-Markovkate_01.svg.png}
+
+In this case we have states: \[A\] and \[E\]. In any case where we have
+two states, we have 4 types of transitions: From \[E\] back to \[E\],
+from \[E\] to \[A\], from \[A\] to \[E\], and from \[A\] to \[A\]. Each
+transition can be modeled by how likely an agent is to transition from
+one state to another, such as \[A\] → \[B\]. This probability is only
+dependent on the agent's current state and can be summarized below:
+
+\includegraphics{https://miro.medium.com/max/300/1*wAtMKljO3SMCqxRFf5mCTQ.png}
+Where \[P~ij\] signifies the probability of the agent tranisiton from
+state \[i\] to state \[j\], if our agent's state is the ranomd variable
+\[X\]. Well, that probability is simply the conditional probability that
+\[X\] will transition to state \[j\] given it is in state \[i\]. Thus,
+the future state of an agent is only dependent on it's current state!
+
+\hypertarget{using-a-markovian-process-to-model-emotions}{%
+\section{Using a markovian process to model
+emotions}\label{using-a-markovian-process-to-model-emotions}}
+
+Markovian processes have been used to model a large number of natural
+phenomena, ranging from physics and chemistry, to biology and social
+sciences! Often the probabilities discussed above can be sumarized in a
+transtion matrix as seen below:
+
+\includegraphics{http://www.sosmath.com/matrix/markov/img2.gif}
+
+This is also know as a \emph{stochastic matrix} and gives us loads of
+insight into what our agent is doing! Trnasition matrices get's me
+thinking, what about the transitions between emotions? Well luckily a
+paper already published a ton of work on this!
+
+\hypertarget{thorton-et-al.-2016-pnas}{%
+\subsection{Thorton et al.~2016, PNAS}\label{thorton-et-al.-2016-pnas}}
+
+In 2016, Mike Thorton and co. published a paper that aimed to quantify
+how accurate people's mental models of emotion transitions are of actual
+transitions between emotions. Even though the main objective of the
+paper was not necessarily what we are interested in, they still have
+valuable data for us to use (i.e.~the transition matricies from ground
+truth studies)! So let's go ahead and take a look at them.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#data}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"~/Desktop/report4/"}\NormalTok{)}
+\NormalTok{gtrans <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"study3/ground_transition_odds.csv"}\NormalTok{)}
+\NormalTok{gtrans}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                X     Pride      Love      Hope Gratitude       Joy Satisfaction
+## 1          Pride 2.6195146 1.1826766 1.5044767 2.0458326 1.2748912    1.3958793
+## 2           Love 1.1902216 1.8893343 1.0880763 1.1187153 0.9480126    0.9166331
+## 3           Hope 1.5099080 1.0851592 1.7807578 1.7694866 1.1015237    1.1356906
+## 4      Gratitude 2.0374556 1.1289276 1.7622894 3.6523381 1.3409076    1.4485945
+## 5            Joy 1.2454226 0.9492002 1.0862339 1.3317509 1.2347061    1.1684947
+## 6   Satisfaction 1.3876857 0.9266632 1.1295195 1.4618843 1.1901851    1.3716074
+## 7            Awe 2.2074205 1.2772894 1.6099203 2.8746463 1.3904013    1.4949611
+## 8      Amusement 1.3378508 0.8998291 1.0531636 1.3837709 1.1052148    1.1291999
+## 9      Alertness 1.1639355 0.7771538 0.9929578 1.2531730 0.9544156    1.0347552
+## 10       Anxiety 0.6873633 0.8040981 0.7691114 0.6574367 0.5906420    0.5725594
+## 11      Contempt 0.8030961 0.7599670 0.7108483 0.7348098 0.5550731    0.6083228
+## 12       Offense 0.7939545 0.7613854 0.8287187 0.8100831 0.5732181    0.6127470
+## 13         Guilt 0.7028675 0.9032297 0.7698041 0.8599494 0.5767446    0.5672657
+## 14       Disgust 0.6112092 0.7448117 0.6887793 0.5853397 0.5153413    0.4982891
+## 15          Fear 0.6886887 0.9219336 0.8564097 0.7532593 0.5150708    0.4957318
+## 16 Embarrassment 0.7740014 0.8138827 0.8485610 0.8204342 0.6522738    0.6887075
+## 17       Sadness 0.5534584 0.7448767 0.6545998 0.6468094 0.4819785    0.4664169
+## 18         Anger 0.6849618 0.7805066 0.6973796 0.6641294 0.5441977    0.5378854
+##          Awe Amusement Alertness   Anxiety   Contempt   Offense     Guilt
+## 1  2.2908563 1.3492421 1.1584746 0.6884515  0.7722077 0.7261512 0.7288256
+## 2  1.2781940 0.9171881 0.8045828 0.8156756  0.8164510 0.7755659 0.8853045
+## 3  1.6870603 1.0860203 1.0054533 0.7458718  0.7790897 0.7381153 0.7466438
+## 4  2.9036606 1.4172555 1.2310949 0.6386910  0.7474789 0.7750961 0.8550354
+## 5  1.3761261 1.0837979 0.9538016 0.5797941  0.5672280 0.5955960 0.5720301
+## 6  1.5101429 1.1148668 1.0399405 0.5695234  0.6438083 0.5869018 0.5770970
+## 7  4.8581826 1.8498332 1.5067867 0.6384095  0.6912849 0.7290041 0.7708730
+## 8  1.7952031 1.5788639 1.1314055 0.6509367  0.9044750 0.7429325 0.6815933
+## 9  1.4880805 1.0948559 1.3423879 0.6916809  0.7804624 0.6958825 0.6795735
+## 10 0.6053583 0.6609511 0.6950476 1.5330593  1.4416656 1.2785022 1.3405024
+## 11 0.9381724 0.8700188 0.7804624 1.3281097 14.1546397 3.4832080 2.7450907
+## 12 0.8181628 0.7228038 0.7297179 1.2585748  3.4236660 4.1297411 2.1073870
+## 13 0.7517208 0.7233576 0.7094336 1.3443324  2.9625237 2.0785187 4.3749320
+## 14 0.5953298 0.6302773 0.6230202 1.1364561  2.2572142 1.9782812 1.7685283
+## 15 0.7291216 0.7109575 0.7019485 1.6029269  3.1795040 2.3814463 2.3973741
+## 16 1.0789147 0.9498761 0.8174747 1.2196555  3.4271408 2.1234148 2.4308781
+## 17 0.5826995 0.5530646 0.6236218 1.1413246  1.4856514 1.4916430 1.5071987
+## 18 0.6600991 0.6628283 0.6510839 1.1714182  2.1538066 1.8896756 1.5477791
+##      Disgust      Fear Embarrassment   Sadness     Anger
+## 1  0.5969950 0.6685516     0.8369472 0.5534584 0.6416098
+## 2  0.7429213 0.9420193     0.7952796 0.7394846 0.7340222
+## 3  0.6531888 0.7863398     0.8691634 0.6116612 0.6171660
+## 4  0.5911697 0.7606927     0.9724727 0.6100661 0.6081185
+## 5  0.5090021 0.5301267     0.6697045 0.4874486 0.4985635
+## 6  0.4852253 0.4977147     0.6703420 0.4552634 0.4861246
+## 7  0.5430680 0.7339502     0.9112077 0.5888722 0.5535477
+## 8  0.6366197 0.7075880     0.8835603 0.5483265 0.5658069
+## 9  0.6093381 0.6697586     0.7597706 0.5936221 0.5979912
+## 10 1.1341840 1.5816833     1.2744338 1.1158960 1.1547876
+## 11 2.1411289 3.2343231     3.0146146 1.4716359 2.1243024
+## 12 2.0714412 2.3930915     2.1840838 1.5229049 1.9648865
+## 13 1.7385109 2.4345839     2.5539605 1.5126349 1.5163086
+## 14 2.4074648 1.7658618     1.5741794 1.5692078 1.7609665
+## 15 1.7507258 4.9747735     2.4204535 1.5556105 1.6445710
+## 16 1.5449739 2.3459780     4.1530463 1.2345009 1.3093949
+## 17 1.5421191 1.6063221     1.2297406 1.8722760 1.4767995
+## 18 1.7854055 1.7340126     1.3528187 1.4959787 2.3479131
+\end{verbatim}
+
+Ok great! Now we have a set of emotions and their transitions! They are
+normed to their frequency, for various reasons but this may give us
+trouble, so let's come back to that next time. For now, we can estimate
+and plot a markov chain!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(markovchain)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"markovchain"}\NormalTok{); }\KeywordTok{require}\NormalTok{(markovchain)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: markovchain
+\end{verbatim}
+
+\begin{verbatim}
+## Package:  markovchain
+## Version:  0.8.5-2
+## Date:     2020-09-07
+## BugReport: https://github.com/spedygiorgio/markovchain/issues
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#now lets call a new markovchain instance}
+\NormalTok{mcEmotion <-}\StringTok{  }\KeywordTok{new}\NormalTok{(}\StringTok{"markovchain"}\NormalTok{, }\DataTypeTok{states =}\NormalTok{ gtrans[,}\DecValTok{1}\NormalTok{], }\DataTypeTok{byrow=}\NormalTok{T, }\DataTypeTok{transitionMatrix=}\KeywordTok{as.matrix}\NormalTok{(gtrans[,}\DecValTok{2}\OperatorTok{:}\DecValTok{19}\NormalTok{]), }\DataTypeTok{name =} \StringTok{"EmoMarkov"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in validObject(.Object): invalid class "markovchain" object: Error! Rows of transition matrix do not some one
+\end{verbatim}
+
+It doesn't work! God dangit!!! Why not? Well it is because the sums of
+the rows do not add to one, this is because they are normalized to the
+frequency! This will take some effort to fix, and I do not have the time
+to do so. So let's save it for next week, right now, we can use the
+example in the \texttt{markovchain} package to learn some more about how
+to code a Markov Chain in R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(}\OperatorTok{!}\KeywordTok{require}\NormalTok{(markovchain)) }\KeywordTok{install.packages}\NormalTok{(}\StringTok{"markovchain"}\NormalTok{); }\KeywordTok{require}\NormalTok{(markovchain)}
+\NormalTok{weatherStates <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"sunny"}\NormalTok{, }\StringTok{"cloudy"}\NormalTok{, }\StringTok{"rain"}\NormalTok{)}
+\NormalTok{byRow <-}\StringTok{ }\OtherTok{TRUE}
+\NormalTok{weatherMatrix <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.70}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\FloatTok{0.1}\NormalTok{,}
+                                 \FloatTok{0.3}\NormalTok{, }\FloatTok{0.4}\NormalTok{, }\FloatTok{0.3}\NormalTok{,}
+                                 \FloatTok{0.2}\NormalTok{, }\FloatTok{0.45}\NormalTok{, }\FloatTok{0.35}\NormalTok{), }\DataTypeTok{byrow =}\NormalTok{ byRow, }\DataTypeTok{nrow =} \DecValTok{3}\NormalTok{, }
+                                \DataTypeTok{dimnames =} \KeywordTok{list}\NormalTok{(weatherStates, weatherStates))}
+\NormalTok{mcWeather <-}\StringTok{ }\KeywordTok{new}\NormalTok{(}\StringTok{"markovchain"}\NormalTok{, }\DataTypeTok{states =}\NormalTok{ weatherStates, }\DataTypeTok{byrow =}\NormalTok{ byRow,}
+                  \DataTypeTok{transitionMatrix =}\NormalTok{ weatherMatrix, }\DataTypeTok{name =} \StringTok{"Weather"}\NormalTok{)}
+\NormalTok{mcWeather}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Weather 
+##  A  3 - dimensional discrete Markov Chain defined by the following states: 
+##  sunny, cloudy, rain 
+##  The transition matrix  (by rows)  is defined as follows: 
+##        sunny cloudy rain
+## sunny    0.7   0.20 0.10
+## cloudy   0.3   0.40 0.30
+## rain     0.2   0.45 0.35
+\end{verbatim}
+
+Great! By doing so we get a sweet transition matrix from a discrete
+Markov Chain with 3 dimensions, now let's visualize it!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(mcWeather)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{report4_files/figure-latex/unnamed-chunk-3-1.pdf}
+Aweosme! This looks so great! Not ideal that we were unable to do this
+for emotions, but I will be stopping by office hours to discuss an
+approach to compute the transition probabilities for each state. That's
+all for now bye-bye!!
+
+\end{document}

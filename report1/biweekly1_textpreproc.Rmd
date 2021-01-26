@@ -1,0 +1,124 @@
+---
+title: "biweekly1_textpreproc"
+author: "Jack Lovell"
+date: "9/3/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Introduction
+Meta-analyses in neuroimaging have yielded great promise in understanding various functional connectomes represented in the human brain. In a field where many studies are badly under powered (Turner, Miller, et al., Commun Biol, 2018) and a large amount of variability is observed in the methods used to analyze data (Botvinik-Nezer, Nature, 2020), meta-analytic approaches provide a means to gaining a general understanding of how networks of activity might be represented in the brain during a particular psychological event. Although a powerful tool to aggregate the majority of data published in a field of study, this approach is not immune to it's flaws and limitations.
+A major step in conducting a meta-analysis is collecting a database of journal articles that report data related to your scientific question. This is often done by conducting a search of terms related to the particular psychological construct you as a researcher are interested in studying. These searches can be completed in databases such as Google Scholar and PubMed. This process often yields thousands of articles that will not be included in the analysis, and a large part of the meta-analytic process is going through these databases and deciding whether or not you would like to include any given paper in your study.
+This can consume a large amount of time and resources, and can often extend the timeline of meta-analysis to the scale of several years. In addition to being a timely process, sorting through thousands of papers by hand will certainly result in human error. Tired eyes under pressure to deliver and complete the task will in turn result in errors when deciding a paper should be included or not.
+An excellent way to potentially streamline this process is leveraging the power of Natural Language Processing (NLP). NLP has been previously used to make this process more efficient and less prone to human error (Bao Y, Deng Z, Wang Y, et al., JCO Clin Cancer Inform. 2019). As a budding researcher who would not only like to make the process of paper selection for meta-analyses less painful, but also learn more about how to model text data.
+I am currently preparing a dataset for a meta-analysis studying the brain correlates of autonomic nervous system function. We are getting closer each day to a final dataset, but it is not at the point in which I can use it to learn how to clean text data. I also would rather practice on a different dataset, so no fatal mistakes are made on the precious data we have taken so long to prepare as a team. Thus I will be using data accessed through twitter's API as practice, and focusing on the real data in later reports. 
+
+The first step is any analysis is curating and cleaning your data. Due to the fact that we are still in the paper selection process (i.e. the data are still being prepared), I will use data publicly available via web scraping. 
+The rest of this report will be centered around several blog posts made by Irfan Alghani Khalid which can be found by following this link:
+https://towardsdatascience.com/text-mining-with-r-gathering-and-cleaning-data-8f8b0d65e67c
+ 
+Your first step should be setting up a twitter API which can be done here: https://developer.twitter.com/en/apply-for-access
+
+We will be focusing this tutorial on comments made by Indonesian netizens taken from a large media outlet called Kompas. 
+
+To get our data into R we will want to import the 'rtweet' library and create our own twitter authorization token, which will contain important information that will allow us to access the API. We will also go through various steps to clean the data and get it from the twitter API. There are some features in the code that we haven't leanred about, such as pipe. I have been exposed to this and other concepts in R before (kaggle comps and other classes), so I am not completely blind to this.
+
+```{r fetch data}
+library(rtweet)
+library(dplyr)
+#Use our own token
+twitter_token <- create_token(
+  app = 'meta_nlp',
+  consumer_key="pzOo1DHoCGpIjElgpHzVDHgl4",
+  consumer_secret="QpTDNngQEDv9CkroVTjBlpRQcoL4iJvGkrAqPNAmXrIFdEVSNE",
+  access_token="1301874142359293952-K7O1mzxSh7PEPR799S9Db3cfHzLx97",
+  access_secret="mOvMMSEmBGZwT9sqZzuX8Oe1K2PRFwohGEOA6KEkxXZ1w"
+)
+#search twitter
+news_tweets <- search_tweets("to:kompascom", n = 18000, include_rts = F)
+#select columns that we'd like
+data_fix <- news_tweets%>%
+              #remove duplicates
+              distinct(text, .keep_all = T)%>%
+              #take text only
+              select(created_at, text)
+#create an id as the tweet identifier
+data_fix["id"]<-1:nrow(data_fix)
+#Convert when the tweet was created to the data format
+data_fix$created_at <- as.Date(data_fix$created_at, format = "%Y-%m-%d")
+```
+
+Now we have about 18,000! tweets that replied to the user Kompass! After we run our code we then have ~ 8603 tweets and 90 different columns (variables of features). We will not use all columns but rather the date and text from the tweet. We also added an identifier column and removed any duplicates thus we are left with:
+8451 tweets and 4 variables
+
+# Data Cleaning
+Without data cleaning our data are full of noise, and often if we try to fit a model to them our results will be uninterpretable. Or worse it will yield some meaningful results but then fail miserably when we test it on a holdout dataset. 
+
+In the case of text, words and symbols that are not relevant to the text we care about can add to this noise. For twitter, this includes mentions (@user), hashtags(#stat2600), and many others. 
+
+In text cleaning there is also something called stop words. Which is essentially a word that does not add to the semantic meaning of a text. If we want an algorithm to understand the semantic meaning of a text then we will want to maximize the data which captures this. We are working in the language of Indonesian, which I do not speak. Although the author of the blog post provided some useful stop words to exclude in a git repo found here:https://github.com/safieranurul/Cleaning-Text-Bahasa-Indonesia.git
+
+If following along please clone that and we will use it throughout the text! Notice the use of the function gsub below. The function takes 3 parameters: the pattern of symbols or words in a string forat, it's replacement, and the data we would like to perform the operation on. Botice every replacement is either a " " or "".
+
+So let's remove those useless symbols and stop words.
+
+```{r remove symbols}
+#get text
+text <- data_fix$text
+
+#set the text to lowercase
+text <- tolower(text)
+
+#remove mentions, urls, emojis, numbers, punctuations, all that crap!
+text <- gsub("@\\w+", "", text)
+text <- gsub("https?://.+", "", text)
+text <- gsub("\\d+\\w*\\d*", "", text)
+text <- gsub("#\\w+", "", text)
+text <- gsub("[^\x01-\x7F]", "", text)
+text <- gsub("[[:punct:]]", " ", text)
+
+#remove space and newlines
+text <- gsub("\n", " ", text)
+text <- gsub("^\\s+", "", text)
+text <- gsub("\\s+$", "", text)
+text <- gsub("[ |\t]+", " ", text)
+
+#get it all into a new column
+data_fix["fix_text"] <- text
+head(data_fix$fix_text,10)
+```
+
+Notice the use of the '\\w+' character when removing symbols. This is saying, substitute any @ symbol that is then followed by \\w any word containing characters ranging from A-Z, a-z and 0-9. So every word! The + signifies that there are one or more characters in the string. We don't want mentions as they don't mean anything in the context of the rest of the text. Note that this is very different from controlling for confounds that are inherent within you data (i.e. artifiacts that interfere with the true signal).
+
+We also want to put our data into tiny data format, and remove stop words. To do so please see the code below. 
+
+```{r remove stopwords and tidy}
+library(tidytext)
+#remove stopwords
+stop_id <- scan(paste(getwd(), "/ID-stopwords.txt", sep=""), character(), sep = "\n")
+
+# create df of stopwords
+stop_words <- data.frame(
+  word <- stop_id,
+  straingsAsFactors = F
+)
+colnames(stop_words) <- "word"
+
+#convert to tidy
+tidy_text <- data_fix %>%
+  select(created_at, id, fix_text)%>%
+  #tokenize the word from the tweets
+  unnest_tokens(input=fix_text, output =word)%>%
+  #remove stop words
+  anti_join(stop_words, by="word")
+tidy_text
+```
+
+#Conclusion
+Cleaning your data is an incredibly important step in any analysis. It is important to keep these methods structured, backed by evidence, and well documented. If there is flexibility across pipelines that are studying a similar field of study, that can often result in serious variability in results as we saw in Botvinik-Nezer 2020. With that said, you want to make sure you would like to preserve the data you are interested in, and remove anything that is not relevant. That decision is unique to every project. In the case of our twitter data, symbols were excluded as we were more interested in the semantic text. If we were interested in analyzing the average number of times a company was mentioned on twitter across several years, we would obviously change what text we would like to include and exclude. With that said, there were some comprehensive and general skills demonstrated here, that are relevant to the problem introduced in the beginning of this report.
+I would also like to mention that the code broke several times when applying it to my own twitter API app. Debugging wasn't an extremely difficult task, but it certinaly was non trivial. Next report I plan to extend on data preprocessing techniques and apply some of the skills I learned this week to a novel dataset. 
+
